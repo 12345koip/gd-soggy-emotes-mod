@@ -1,0 +1,15 @@
+{
+	"geode": "6.0.0-alpha.1",
+	"gd": {
+		"win": "2.2091",
+		"android": "2.2091",
+		"mac": "2.2091",
+		"ios": "2.2091"
+	},
+	"id": "kx_.soggy-emotes",
+	"name": "Soggy Emotes",
+	"version": "v1.0.0",
+	"developer": "kx_",
+	"description": "Adds soggy cat emotes",
+	"dependencies": {}
+}
