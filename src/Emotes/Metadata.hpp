@@ -3,7 +3,7 @@
 
 namespace SoggyEmotes::Metadata {
     //just to be added to the particle index so we don't collide.
-    constexpr auto g_soggyEmotesBase = 262;
+    constexpr auto g_soggyEmotesBase = 1000;
 
     static std::map<const char*, EmoteDef> g_soggyEmotesMap {
         {"soggy_original.png"_spr, {
@@ -60,4 +60,13 @@ namespace SoggyEmotes::Metadata {
             .m_isAlias = false
         }}
     };
+
+    inline EmoteDef* GetSoggyEmoteDefByIndex(const int tag) {
+        for (auto& [_, def]: g_soggyEmotesMap) {
+            if (def.m_particleIndex == tag)
+                return &def;
+        }
+
+        return nullptr;
+    }
 }
