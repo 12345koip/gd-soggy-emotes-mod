@@ -42,9 +42,18 @@ namespace SoggyEmotes::Metadata {
             .m_isAlias = false
         }},
 
-        {"soggy_hey.png"_spr, {
+        {"soggy_sniff.png"_spr, {
             .m_name = "soggy_hey",
             .m_particleIndex = g_soggyEmotesBase + 5,
+            .m_scale = 1.0f,
+            .m_x = 0.0f, .m_y = 0.0f,
+            .m_color = cocos2d::ccColor3B(230, 230, 230),
+            .m_isAlias = false
+        }},
+
+        {"soggy_what.png"_spr, {
+            .m_name = "soggy_what",
+            .m_particleIndex = g_soggyEmotesBase + 6,
             .m_scale = 1.0f,
             .m_x = 0.0f, .m_y = 0.0f,
             .m_color = cocos2d::ccColor3B(230, 230, 230),

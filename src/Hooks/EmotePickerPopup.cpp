@@ -21,8 +21,6 @@ class $modify(EmotePickerPopup) {
     }
 
     void layoutEmoteGrid() {
-        EmotePickerPopup::layoutEmoteGrid();
-
 
     }
 };

@@ -12,7 +12,7 @@
 	"developer": "kx_",
 	"description": "Adds soggy cat emotes",
     "resources": {
-        "sprites": ["resources/sprites/sogemoji.png"]
+        "sprites": ["resources/sprites/*"]
     },
 	"dependencies": {}
 }
