@@ -4,9 +4,10 @@
 using namespace geode::prelude;
 
 $on_game(Loaded) {
-    //this way i dont have to mess with the emote sprite class :D
+    //this way i dont have to mess with the emote sprite class bc this works
+    //with createWithName, etc. yay :D
     for (auto& [path, def]: SoggyEmotes::Metadata::g_soggyEmotesMap) {
-        auto texture = CCTextureCache::get()->addImage(path, true);
+        auto texture = CCTextureCache::get()->addImage(path, false);
 
         if (!texture) {
             log::warn("soggy emote {} could not be placed in the texture cache", path);

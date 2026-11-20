@@ -14,5 +14,6 @@
     "resources": {
         "sprites": ["resources/sprites/*"]
     },
-	"dependencies": {}
+	"dependencies": {},
+    "tags": ["enhancement", "joke"]
 }

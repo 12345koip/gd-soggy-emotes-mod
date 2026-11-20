@@ -11,6 +11,11 @@ class $modify(EmotePickerPopup) {
         std::vector<CCMenuItemSpriteExtra*> soggyEmotes {};
     };
 
+    static void onModify(auto& self) {
+        if (!self.setHookPriorityAfterPost("EmotePickerPopup::layoutEmoteGrid", "kx_.better-emote-picker"))
+            log::warn("could not set EmotePickerPopup::layoutEmoteGrid hook prio");
+    }
+
     void onBuildWindowContent() {
         EmotePickerPopup::onBuildWindowContent();
 
@@ -21,7 +26,7 @@ class $modify(EmotePickerPopup) {
         //got to re-tag the recents so onPickEmote recognises them.
         for (auto* recent: this->m_recentEmoteButtons) {
             auto* sprite = static_cast<EmoteSprite*>(recent->getNormalImage());
-            if (sprite->m_emoteDef->m_particleIndex >= g_soggyEmotesBase && sprite->m_emoteDef->m_particleIndex < 100000)
+            if (sprite->m_emoteDef->m_particleIndex >= kSoggyEmotesBase && sprite->m_emoteDef->m_particleIndex < 100000)
                 recent->setTag(sprite->m_emoteDef->m_particleIndex);
         }
 
@@ -41,17 +46,14 @@ class $modify(EmotePickerPopup) {
     void layoutEmoteGrid() {
         EmotePickerPopup::layoutEmoteGrid();
 
-        //easiest way to calculate this tbh
-        float lowestY = 0.0f;
-        for (auto child: this->m_scrollContentMenu->getChildrenExt()) {
-            if (child->getID() == "soggy_emote"_spr) continue;
-
-            if (child->getPositionY() < lowestY)
-                lowestY = child->getPositionY();
-        }
+        //last non-alias def is at index 195 so its placed last
+        const auto lastCell = this->m_scrollContentMenu->getChildByTag(195);
+        if (!lastCell) return;
+        const float lowestY = lastCell->getPositionY();
 
         const int maxCols = (this->m_windowWidth - 8.0f) / 26.0f;
         const float pad_x = (this->m_windowWidth - (maxCols * 26.0f)) * 0.5f;
+
 
         float currentY = lowestY - 38.0f;
         int currentCol = 0;
@@ -59,7 +61,7 @@ class $modify(EmotePickerPopup) {
             cell->setPosition({pad_x + (currentCol + 0.5f) * 26.f, currentY});
             ++currentCol;
 
-            if (currentCol >= maxCols) { //newline.
+            if (currentCol == maxCols) { //newline.
                 currentCol = 0;
                 currentY -= 26.f;
             }
@@ -72,11 +74,10 @@ class $modify(EmotePickerPopup) {
         if (!this->canAddEmote()) return;
         auto* sprite = static_cast<CCMenuItemSpriteExtra*>(sender);
 
-        if (sprite->getTag() <= g_soggyEmotesBase || sprite->getTag() > 100000)
+        if (sprite->getTag() <= kSoggyEmotesBase || sprite->getTag() > kRecentEmotesBase)
             return EmotePickerPopup::onPickEmote(sender);
 
         auto* def = GetSoggyEmoteDefByIndex(sprite->getTag());
-
         auto* manager = GameManager::sharedState();
         manager->addRecentEmote(def->m_name);
 
