@@ -1,5 +1,5 @@
 {
-	"geode": "6.0.0-alpha.2",
+	"geode": "6.0.0-alpha.3",
 	"gd": {
 		"win": "2.2091",
 		"android": "2.2091",
@@ -10,7 +10,7 @@
 	"name": "Soggy Emotes",
 	"version": "v1.0.0",
 	"developer": "kx_",
-	"description": "Adds soggy cat emotes",
+	"description": "Adds various soggy cat emotes :3",
     "resources": {
         "sprites": ["resources/sprites/*"]
     },

@@ -3,7 +3,7 @@
 
 using namespace geode::prelude;
 
-$on_mod(Loaded) {
+$on_game(Loaded) {
     //this way i dont have to mess with the emote sprite class :D
     for (auto& [path, def]: SoggyEmotes::Metadata::g_soggyEmotesMap) {
         auto texture = CCTextureCache::get()->addImage(path, true);

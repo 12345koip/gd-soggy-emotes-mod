@@ -1,3 +1,4 @@
+#include <ranges>
 #include <Geode/Geode.hpp>
 #include <Geode/modify/EmotePickerPopup.hpp>
 #include "../Emotes/Metadata.hpp"
@@ -13,19 +14,18 @@ class $modify(EmotePickerPopup) {
     void onBuildWindowContent() {
         EmotePickerPopup::onBuildWindowContent();
 
-        //got to re-tag the recents so onPickEmote recognises them.
-        for (auto* recent: this->m_recentEmoteButtons) {
-            auto* sprite = static_cast<EmoteSprite*>(recent->getNormalImage());
-
-            if (auto* def = sprite->m_emoteDef; def->m_particleIndex >= g_soggyEmotesBase && def->m_particleIndex < 100000)
-                recent->setTag(def->m_particleIndex);
-        }
-
         for (auto* cell: this->m_fields->soggyEmotes)
             cell->removeFromParent();
         this->m_fields->soggyEmotes.clear();
 
-        for (auto& [_, def]: g_soggyEmotesMap) {
+        //got to re-tag the recents so onPickEmote recognises them.
+        for (auto* recent: this->m_recentEmoteButtons) {
+            auto* sprite = static_cast<EmoteSprite*>(recent->getNormalImage());
+            if (sprite->m_emoteDef->m_particleIndex >= g_soggyEmotesBase && sprite->m_emoteDef->m_particleIndex < 100000)
+                recent->setTag(sprite->m_emoteDef->m_particleIndex);
+        }
+
+        for (auto& def: g_soggyEmotesMap | std::views::values) {
             auto cell = this->addCell(&def, def.m_particleIndex);
             if (!cell) continue;
 
